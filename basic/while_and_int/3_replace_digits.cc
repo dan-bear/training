@@ -58,7 +58,7 @@ int replaceDigits(int num, int digitIdx1, int digitIdx2){
 //         }else{
 //             tenMultiply = myPow(10, currentDigitIdx));
 //         }
-        
+/        
 //         newNum += (currentDigit * tenMultiply);
 //         currentDigitIdx++;
 //         num /= 10;

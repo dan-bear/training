@@ -1,3 +1,15 @@
+/**
+ * The fuction gets an array of chars and its length
+ * and returns the most common char in the array.
+ * For example: array = {'h','e','l','l','o',' ','w','o','r','l','d'"}
+ * Then 'l' is returned since the it appears 3 times in the array and
+ * all the other letters appear less than 3 times.
+ * @note if there are several chars with the same number of occurences
+ * return one of them. For example: array = {'o','k',' ','o','k} it
+ * does not matter whether 'o' or 'k' are returned.
+ */
+
+
 #define NUM_OF_CHARS 'z' - 'a' + 1
 #define FIRST_CHAR 'a'
 

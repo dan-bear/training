@@ -1,25 +1,59 @@
 /**
  * https://leetcode.com/problems/longest-valid-parentheses/
+ * 
  */
-
 
 class Solution {
 public:
-    /**
-     * define isValid[i][j] to be true if s[i:j] is a valid
-     * parentheses and false if s[i:j] is not.
-     * 1: isValid[i][i+2*k] = false since s[i:i+2k] contains
-     *    odd number of parentheses.
-     * 2: isValid[i][i+1] = true <=> s[i:i+1] == "()"
-     * 3: isValid[i][i+2*k+1] = true if:
-     *    exists d in range 0, 1, ..., k-1 such that:
-     *    if s[i] = '(' and s[i+2d+1] = ')' and isValid[i+1, i+2d] and isValid[i+2d+2][i+2k+1]
-     */
-    int longestValidParentheses(string s) {
+        
+    int longestValidParentheses(string s){
+        //int res = dpLongestValidParentheses(s);
+        int res = bruteForceLongestValidParentheses(s);
+        return res;
+    }
+
+
+private:
+    //failed on test 228 out of 231 due to time-limit-exceeded error.
+    int bruteForceLongestValidParentheses(const string& s){
+        int res = 0;
+        for(int firstIdx = 0; firstIdx < s.length(); firstIdx++){
+            for(int lastIdx = firstIdx + 1; lastIdx < s.length(); lastIdx++){
+                if(isValidParentheses(s, firstIdx, lastIdx)){
+                    res = max(res, lastIdx - firstIdx + 1);
+                }
+            }            
+        }
+        return res;
+
+    }
+    
+    bool isValidParentheses(const string& s, int firstIdx, int lastIdx){
+        int openBrackets = 0;
+        for(int idx = firstIdx; idx <= lastIdx && openBrackets >= 0; idx++){
+            if(s[idx] == skOpenBracket){
+                openBrackets++;
+            }else{
+                openBrackets--;
+            }
+        }
+        return openBrackets == 0;
+    }
+
+
+
+
+
+
+
+    //This solution got run-time exceeded in a very long test
+    //227 out of 231 tests.
+    int dpLongestValidParentheses(string s) {
         vector<vector<bool>> isValidTbl = calcIsValidDpTbl(s);
+        int tblDim = isValidTbl.size();
         int maxPareSubStrLen = 0;
-        for(int rowIdx = 0; rowIdx < isValidTbl.size(); rowIdx++){
-            for(int colIdx = 0; colIdx < isValidTbl[0].size(); colIdx++){
+        for(int rowIdx = 0; rowIdx < tblDim; rowIdx++){
+            for(int colIdx = rowIdx + 1; colIdx < tblDim; colIdx++){
                 if(isValidTbl[rowIdx][colIdx]){
                     maxPareSubStrLen = max(maxPareSubStrLen, colIdx - rowIdx + 1);
                 }
@@ -28,7 +62,6 @@ public:
         return maxPareSubStrLen;
     }
 
-private:
     vector<vector<bool>> calcIsValidDpTbl(string s){
         int sLen = s.length();
         vector<vector<bool>> isValidTbl(sLen, vector<bool>(sLen, false));
@@ -59,7 +92,7 @@ private:
             if(colIdx - rowIdx == 1){
                 bRes = (s[colIdx] == skCloseBracket);
             }else{
-                for(int closePareIdx = rowIdx + 1; closePareIdx <= colIdx; closePareIdx++){
+                for(int closePareIdx = rowIdx + 1; closePareIdx <= colIdx; closePareIdx+=2){
                     if(s[closePareIdx] == skCloseBracket){
                         if(closePareIdx == rowIdx + 1 || isValidTbl[rowIdx + 1][closePareIdx - 1]){
                             if(closePareIdx == colIdx || isValidTbl[closePareIdx + 1][colIdx]){

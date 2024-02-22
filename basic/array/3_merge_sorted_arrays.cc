@@ -8,10 +8,10 @@
  * thus, it's not given as a parameter.
  */
 void mergeSortedArrays(int array1[],
-           int arr1Len,
-           int array2[],
-           int arr2Len,
-           int mergeArr[])
+                       int arr1Len,
+                       int array2[],
+                       int arr2Len,
+                       int mergeArr[])
 {
     int idx1 = 0;
     int idx2 = 0;
@@ -43,14 +43,29 @@ void mergeSortedArrays(int array1[],
         }
     }
 
-    // A cleaner version for the tail part when pointers
-    // are already learned.
-    // int* copyFrom = itr1 == arr1Len ? array2 : array1;
-    // int copyItr = itr1 == arr1Len ? itr2 : itr1;
-    // int copyTill = itr1 == arr1Len ? arr2Len : arr1Len;
+    //Node: do we actually need the if else above? i.e.
+    //      can we replace lines 30 to 44 with:
+    // while (idx1 < arr1Len) {
+    //     mergeArr[mergeIdx] = array1[idx1];
+    //     idx1++;
+    //     mergeIdx++;
+    // }
+    // while (idx2 < arr2Len) {
+    //     mergeArr[mergeIdx] = array2[idx2];
+    //     idx2++;
+    //     mergeIdx++;
+    // }
+    // The answer is yes, but make sure you understand why!
+
+           
+    // Note: a cleaner version for the tail part when
+    // pointers are already tought.
+    // int* copyFrom = idx1 == arr1Len ? array2 : array1;
+    // int copyIdx = idx1 == arr1Len ? idx2 : idx1;
+    // int copyTill = idx1 == arr1Len ? arr2Len : arr1Len;
     // while(copyItr < copyTill){
-    //     mergeArr[mergeIdx] = copyFrom[copyItr];
-    //     copyItr++;
+    //     mergeArr[mergeIdx] = copyFrom[copyIdx];
+    //     copyIdx++;
     //     mergeIdx++;
     // }
 }

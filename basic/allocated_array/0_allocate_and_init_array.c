@@ -1,3 +1,5 @@
+
+
 /**
  * Implement the function int* allocateAndFillArray(int len)
  * The function allocates an integer array of lengh len and
@@ -7,6 +9,9 @@
  * DOES NOT FREE THE MEMORY!
  * See usage example:
  */
+#include <stdlib.h>
+#include <stdio.h>
+
 int* allocatedAndFillArray(int len);
 int main(){
     int lastNumber;

@@ -1,32 +1,43 @@
 /**
  * https://leetcode.com/problems/longest-valid-parentheses/
- * 
+ * #parentheses
+ * #dp #DP
+ * #recursion
+ * #stack
+ * #brackets #bracket
  */
 
 class Solution {
 public:
         
     int longestValidParentheses(string s){
+        //The first two solutions work but their run time is
+        //too-long for the longest tests.
         //int res = dpLongestValidParentheses(s);
         //int res = bruteForceLongestValidParentheses(s);
+        
         int res = stackLongestValidParentheses(s);
         return res;
     }
 
 
 private:
-    
     int stackLongestValidParentheses(const string& s){
+        vector<int> vIdxOfUnmatchedBrackets = calcIdxOfUnmatchedBrackets(s);
+        int maxLen= calcLongestDistBetweenUnmatchedIdx(vIdxOfUnmatchedBrackets, s);
+        return maxLen;
+    }
+
+    vector<int> calcIdxOfUnmatchedBrackets(const string& s){
+        vector<int> vIdxOfUnmatchedBrackets;
         char openBracket = '(';
         char closeBracket = ')';
-        
-        vector<int> vIdxOfUnmatchedBrackets;
-        for(int charIdx = 0; charIdx < s.lenth(); charIdx++){
+        for(int charIdx = 0; charIdx < s.length(); charIdx++){
             if(s[charIdx] == openBracket){
                 vIdxOfUnmatchedBrackets.push_back(charIdx);
             }else{
                 if(vIdxOfUnmatchedBrackets.empty() ||
-                   vIdxOfUnmatchedBrackets.back() == closeBracket){
+                   s[vIdxOfUnmatchedBrackets.back()] != openBracket){
                        //cannot match current close bracket.
                        vIdxOfUnmatchedBrackets.push_back(charIdx);
                 }else{
@@ -35,53 +46,28 @@ private:
                 }
             }
         }
-        
-        int maxLen = 0;
-        // Now we got all the indices of unmatched brackets.
-        // by finding the maximal distance between two indexes
-        // we can calculate the longest valid parentheses.
-        if(vIdxOfUnmatchedBrackets.empty()){
-            maxLen = s.length();
-        }else{
-            int currLen = 0;
-            int prevUnmatchedIdx = -1;
-            for(int idx = 0; idx < vIdxOfUnmatchedBrackets.size(); idx++){
-                currLen = (vIdxOfUnmatchedBrackets[idx] - prevUnmatchedIdx) - 1;
-                maxLen = max(maxLen, currLen);
-                prevUnmatchedIdx = vIdxOfUnmatchedBrackets[idx];
-            }
+
+        return vIdxOfUnmatchedBrackets;
+    }    
+
+    int calcLongestDistBetweenUnmatchedIdx(const vector<int>& vIdxOfUnmatchedBrackets, const string& s){
+        int invalidLen = -1;
+        int maxLen = invalidLen;
+        int currLen = 0;
+        int prevUnmatchedIdx = -1;
+        for(int idx = 0; idx < vIdxOfUnmatchedBrackets.size(); idx++){
+            currLen = (vIdxOfUnmatchedBrackets[idx] - prevUnmatchedIdx) - 1;
+            maxLen = max(maxLen, currLen);
+            prevUnmatchedIdx = vIdxOfUnmatchedBrackets[idx];
         }
+        // need one more check!
+        currLen = vIdxOfUnmatchedBrackets.empty() ?
+                  s.length() :
+                  (s.length()  - vIdxOfUnmatchedBrackets.back() - 1);
+        maxLen = max(maxLen, currLen);
         return maxLen;
     }
-
-    int stackLongestValidParenthesesAux(const string& s,
-                                        char openBracket,
-                                        char closeBracket, 
-                                        int startIdx, 
-                                        int lastNotInclusiveIdx, 
-                                        int dir){
-        
-        int maxRes = 0;
-        int currLen = 0;
-        for(int charIdx = startIdx; charIdx != lastNotInclusiveIdx; charIdx += dir){
-            if(s[charIdx] == openBracket){
-                vLastOpenBracketIdx.push_back(charIdx);
-            }else{
-                if(vLastOpenBracketIdx.size() > 0){
-                    currLen++;
-                    vLastOpenBracketIdx.pop_back();
-                }else{
-                    maxRes = max(maxRes, currLen);
-                    currLen = 0;
-                }
-            }
-        }
-        //there might be some open brackets that were not closed.
-        
-        maxRes = max(maxRes, currLen);//might have exhausted the string.
-        return maxRes * 2;//counted pairs.
-    }
-
+    
     //failed on test 228 out of 231 due to time-limit-exceeded error.
     int bruteForceLongestValidParentheses(const string& s){
         int res = 0;

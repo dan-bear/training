@@ -7,6 +7,7 @@
  * @param colDim the columns dimension of the matrix.
  * @return the allocated matrix.
  */
+#include <stdlib.h>
 int** allocateIntMatrix(int rowDim, int colDim)
 {
     int** matrix = (int**)malloc(rowDim * sizeof(int*));

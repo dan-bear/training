@@ -33,10 +33,9 @@ int** findDifference(int* nums1, int nums1Size, int* nums2, int nums2Size, int* 
     ///number of distinct values by allocating the maximal possible
     ///number of distinct values, which are nums1Size and nums2Size
     ///and then calculate the number of the distinct values while
-    ///filling the array. From complexity point of view, it does 
-    ///not matter, the space it still
-    /// O(max(nums1Size*log(nums1Size), nums2Size*log(nums2Size))) for
-    /// the sort space and sort time.
+    ///filling the array (during fillDistinct method). From complexity point
+    ///of view, it does not matter, the as the space complexity it still
+    ///O(max(nums1Size, nums2Size)) due to the merge sort.
     lists[0] = (int*)malloc(distinctValsCount[0] * sizeof(int));
     lists[1] = (int*)malloc(distinctValsCount[1] * sizeof(int));
     fillDistinct(nums1, nums1Size, nums2, nums2Size, lists[0]);

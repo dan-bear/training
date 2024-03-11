@@ -61,6 +61,7 @@ int binarySearch(int* sortedNums, int len, int target){
 }
 
 /// Simple print based test.
+//#include <stdio.h>
 // int main()
 // {
 //     int nums1[] = { 2, 2, 2, 4, 6,};

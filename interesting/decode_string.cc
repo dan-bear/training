@@ -1,41 +1,29 @@
-//"3[z]2[2[y]pq4[2[jk]e1[f]]]ef"
-//https://leetcode.com/problems/decode-string
-
+/**
+ * https://leetcode.com/problems/decode-string
+ * #stack #STACK #str #string #STR #STRING
+ */
 class Solution {
 public:
     string decodeString(string s) {
-        char leftBracket = '[';
         char rightBracket = ']';
-        vector<int> stack;
-        string res;
-        string addition;
+        vector<char> stack;
         for(char& symbol : s){
             if(symbol != rightBracket){
-                if(isLetter(symbol) && stack.empty()){
-                     res += symbol;
-                }else{
-                    stack.push_back(symbol);
-                }
+                stack.push_back(symbol);
             }else{
-                string addition = popStrFromStack(stack) + addition;
-                cout << "addition " << addition << "\n";
+                string addition = popStrFromStack(stack); 
                 stack.pop_back();//remove the left-bracket.
                 int reps = popRepsFromStack(stack);
-                cout << "reps " << reps << "\n";
                 addition = concatenate(addition, reps);
-                cout << "addition " << addition << "\n";
-                if(stack.empty()){
-                     res += addition;
-                     addition = "";
-                     
-                }
-                cout << "res " << res << "\n";
+                ///That's the most interesting part here.
+                pushToStack(stack, addition);
             }                
         }
+        string res = fromStackToStr(stack);
         return res;
     }
 private:
-    string popStrFromStack(vector<int>& stack){
+    string popStrFromStack(vector<char>& stack){
         string res;
         while(isLetter(stack.back())){
             res.push_back(stack.back());
@@ -45,7 +33,7 @@ private:
         return res;
     }
 
-    int popRepsFromStack(vector<int>& stack){
+    int popRepsFromStack(vector<char>& stack){
         int reps = 0;
         int tenPower = 1;
         while(!stack.empty() && isDigit(stack.back())){
@@ -64,6 +52,16 @@ private:
         return res;
     }
 
+    void pushToStack(vector<char>& stack, string addition){
+        for(char& c : addition){
+            stack.push_back(c);
+        }
+    }
+
+    string fromStackToStr(const vector<char>& stack){
+        return string(stack.begin(), stack.end());
+    }
+
     bool isLetter(char c){
         return (c >= 'a' && c <= 'z');
     }
@@ -75,4 +73,6 @@ private:
     int toDigit(char asciiDigit){
         return static_cast<int>(asciiDigit - '0');
     }
+
+
 };

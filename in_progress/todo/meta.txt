@@ -1,0 +1,2 @@
+https://leetcode.com/problems/next-permutation/description/
+https://leetcode.ca/all/270.html

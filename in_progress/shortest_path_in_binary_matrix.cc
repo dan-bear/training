@@ -9,9 +9,8 @@ public:
         if(grid[0][0] == skViableStepSymbol &&
            grid[m_gridLastIdx][m_gridLastIdx] == skViableStepSymbol){
             //exceeds the time limit in the 49th test.
-            //backTrackShortestPath(grid, 0, 0, 1);
+            //backTrackShortestPath(grid, 0, 0, 1);          
             
-            //excceeds the time limit in the 64th test.
             bfsShortestPath(grid);
         }
         m_minLen = m_minLen == numeric_limits<int>::max() ? skNoPathRetVal : m_minLen;
@@ -26,35 +25,44 @@ private:
     int m_gridLastIdx{-1};
     vector<pair<int, int>> m_dirs = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1},
                                   {1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-
     
+    /**
+     * Note: I made a mistake by updating the value of the
+     * cell to skInvalidStep only when the coordinate was
+     * processed from the queue and not when it's placed in
+     * the queue. It breaks the algorithm, since two 
+     * coordinates in the same bfs level can reach each other.
+     */
     void bfsShortestPath(vector<vector<int>>& grid){
         queue<pair<int, int>> coordinates;
         coordinates.push({0, 0});
-        int length = 1;
-        int row = -1;
-        int col = -1;
+        grid[0][0] = skVisitedSymbol;
+        
+        int distance = 1;
         while(!coordinates.empty()){
             int numOfCoordinates = coordinates.size();
             for(int step = 0; step < numOfCoordinates; step++){
-                row = coordinates.front().first;
-                col = coordinates.front().second;
+                int row = coordinates.front().first;
+                int col = coordinates.front().second;
+                //here was the mistake I made:
+                //The only place where I updated the cell value
+                //was here:
+                //grid[row][col] = skVisitedSymbol;
                 coordinates.pop();
-                grid[row][col] = skVisitedSymbol;
 
                 if(row == m_gridLastIdx && col == m_gridLastIdx){
-                    ///found it, time to finish.
-                    m_minLen = length;
+                    m_minLen = distance;
                     return;
                 }
                 
                 for(const pair<int,int>& dir : m_dirs){
                     if(isValidStep(grid, row, col, dir)){
                         coordinates.push({row + dir.first, col + dir.second});
+                        grid[row + dir.first][col + dir.second] = skVisitedSymbol;
                     }
                 }
             }
-            length += 1;
+            distance += 1;
         }
     }
 

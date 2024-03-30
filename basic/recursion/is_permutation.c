@@ -1,5 +1,21 @@
+#include <stdio.h>
+#include <stdbool.h>
+
 void swap(char* str, int idx1, int idx2);
 int findCharInStr(char c, char* str);
+int stringLen(char* str);
+void stringCopy(char* strSrc, char* strDst);
+
+bool isPermutation(char str1[], char str2[]){
+    int str2Len = stringLen(str2) + 1; // for the '\0'.
+    char* str2Copy = (char*)malloc(str2Len * sizeof(char));
+    stringCopy(str2, str2Copy);
+    ///pass the copy to the auxilary function, as it changes
+    ///str2.
+    return isPermutationAux(str1, str2Copy);
+}
+
+
 /**
  * The idea of the solution:
  * Take the first char in str1 and search it in str2.
@@ -11,8 +27,7 @@ int findCharInStr(char c, char* str);
  * substrings (recursive calls).
  * The recursion needs to halt when str1[0] = '\0'.
  */
-bool isPermutation(char str1[], char str2[])
-{
+bool isPermutationAux(char str1[], char str2[]){
     /// Start by checking the halting condition:
     if (str1[0] == '\0') {
         if (str2[0] == '\0') {
@@ -58,4 +73,25 @@ int findCharInStr(char c, char* str)
         /// it means that str[idx] == '\0'
         return -1; /// invalid index.
     }
+}
+
+int stringLen(char* str){
+    /// Note: the method does not count the null terminator.
+    int idx = 0;
+    while (str[idx] != '\0') {
+        idx++;
+    }
+    return idx;
+}
+
+
+void stringCopy(char* srcString, char* dstString)
+{
+    int idx = 0;
+    while (srcString[idx] != '\0') {
+        dstString[idx] = srcString[idx];
+        idx++;
+    }
+    // Save the null terminator in the last position.
+    dstString[idx] = '\0';
 }

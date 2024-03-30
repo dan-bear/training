@@ -6,6 +6,7 @@ void swap(char* str, int idx1, int idx2);
 int findCharInStr(char c, char* str);
 int stringLen(char* str);
 void stringCopy(char* srcString, char* dstString);
+bool isPermutationAux(char str1[], char str2[]);
 
 bool isPermutation(char str1[], char str2[]){
     int str2Len = stringLen(str2) + 1; // for the '\0'.

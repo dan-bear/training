@@ -26,7 +26,7 @@ int stringLenWithoutNullTerm(char* str);
 bool isPalindromeAux(char* str, int strLen);
 bool isPalindrome(char* str){
     int lenWithoutNullTerminator = stringLenWithoutNullTerm(str);
-    return isPalindrome(str, lenWithoutNullTerminator);
+    return isPalindromeAux(str, lenWithoutNullTerminator);
 }
 
 bool isPalindromeAux(char* str, int strLen){
@@ -36,7 +36,7 @@ bool isPalindromeAux(char* str, int strLen){
     if(str[0] != str[strLen - 1]){
         return false;
     }
-    return isPalindrome(str + 1, strLen - 2);
+    return isPalindromeAux(str + 1, strLen - 2);
 }
 
 int stringLenWithoutNullTerm(char* str){

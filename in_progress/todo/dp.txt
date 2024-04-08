@@ -1,0 +1,18 @@
+https://leetcode.com/discuss/interview-question/4988261/dynamic-programming-patterns
+
+Minimum Cost Climbing Stairs (Problem #746)
+Problem 70: Climbing Stairs
+Problem 322: Coin Change
+Problem 57: Insert Interval 
+Problem 253: Meeting Rooms II
+Longest Common Subsequence (Problem #1143)
+Problem 516: Longest Palindromic Subsequence
+Problem 72: Edit Distance
+House Robber (Problem #198)
+Problem 213: House Robber II
+Problem 121: Best Time to Buy and Sell Stock
+Problem 122: Best Time to Buy and Sell Stock II
+Problem 123: Best Time to Buy and Sell Stock III  
+Problem 198: House Robber
+Problem 337: House Robber III
+  

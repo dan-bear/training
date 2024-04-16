@@ -1,18 +1,18 @@
 //https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
 impl Solution {
     pub fn str_str(haystack: String, needle: String) -> i32 {
-        let mut res = -1;
+        let mut res : i32 = -1;
         let haystack_len = haystack.len(); // String::len() returns usize.
         let needle_len = needle.len(); 
         if haystack_len >= needle_len {
             // the ..= makes the index to move from 0 to the last value
             // including the last value.
             for front_idx in 0..=(haystack_len - needle_len) {
-                // [idx1..idx2] operator for string returns a slice
-                // and the == operator is implemented between slices and
-                // strings.
-                if haystack[front_idx..front_idx + needle_len] == needle{
-                    // needs a cast since front_idx is a usize.
+                //Note: have to pass reference to the strings since the string 
+                //      themselves are used in the next iteration, so the 
+                //      string can be borrowed but not to be moved.
+                //Note: front_idx is not moved, but passed by copy.
+                if Self::check_needle_from_current_idx(&haystack, &needle, front_idx){
                     res = front_idx as i32;
                     break;
                 }
@@ -22,6 +22,18 @@ impl Solution {
         //same as: "return res;""
         //Note: "res;" does not compile since it's a statement
         //       and not an expression. 
+    }
+
+    fn check_needle_from_current_idx(r_haystack : &String,
+                                     r_needle : &String,
+                                     front_idx : usize) -> bool{
+        // [idx1..idx2] operator for string returns a slice
+        // and the == operator is implemented between slices and
+        // strings. The problem is that == is not implemented between
+        // slices and reference to string, that's why r_needle[..] is used
+        // to make a slice out of needed, so the comparison can be made
+        // between two slices. 
+        return r_haystack[front_idx..(front_idx + r_needle.len())] == r_needle[..];
     }
 
     //More notes:

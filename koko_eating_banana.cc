@@ -22,14 +22,11 @@ public:
 
 private:
     bool canEatAll(const vector<int>& piles, int hours, int eatRate){
-        int timeToEat = 0;
-        for(int pileIdx = piles.size() - 1;
-            pileIdx >= 0 && timeToEat <= hours;
-            pileIdx--){
-            
-            timeToEat += ceil(piles[pileIdx], eatRate);
+        unsigned int timeToEat = 0;
+        for(int pileSize : piles){
+            timeToEat += static_cast<unsigned int>(ceil(pileSize, eatRate));
         }
-        return timeToEat <= hours;
+        return timeToEat <= static_cast<unsigned int>(hours);
     }
 
     int ceil(int val, int divisor){

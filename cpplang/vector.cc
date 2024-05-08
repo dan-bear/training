@@ -25,6 +25,11 @@ public:
         sort(vec2.begin(), vec2.end());
         ///using std sort with lambda function as compare function.
         sort(vec2.begin(), vec2.end(), [](int& val1, int& val2){return val1 < val2;});
+
+
+        ///reverse iterators
+        printInt(vec1.rbegin()[0]);///gets last element.
+        printInt(vec1.rbegin()[1]);///gets one before last element.
     }  
 
 private:

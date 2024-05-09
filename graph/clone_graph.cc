@@ -1,6 +1,7 @@
 /**
  * https://leetcode.com/problems/clone-graph
  * #graph #GRAHP #bfs #dfs
+ * #interesting
  */
 
 /*
@@ -31,11 +32,32 @@ public:
             return nullptr;
         }
         //return copyValuesAndBuildGraph(node);
-        return bfsWithoutCopyingVals(node);
+        //return bfsWithoutCopyingVals(node);
+        return dfsSolution(node);
     }
 
     
 private:
+    Node* dfsSolution(Node* pStartNode){
+        unordered_map<Node*, Node*> originAndCloneMap;
+        dfsGraphBuild(originAndCloneMap, pStartNode);
+        return originAndCloneMap[pStartNode];
+    }
+
+    void dfsGraphBuild(unordered_map<Node*, Node*>& originAndCloneMap, Node* pNode){
+        Node* pClone = new Node(pNode->val);
+        originAndCloneMap[pNode] = pClone;
+        vector<Node*> cloneNeighbors;
+
+        for(Node* pNeighbor : pNode->neighbors){
+            if(originAndCloneMap.find(pNeighbor) == originAndCloneMap.end()){
+                dfsGraphBuild(originAndCloneMap, pNeighbor);
+            }
+            cloneNeighbors.push_back(originAndCloneMap[pNeighbor]);
+        }
+        pClone->neighbors = cloneNeighbors;
+    }
+
     Node* bfsWithoutCopyingVals(Node* pStartNode){
         unordered_map<Node*, Node*> originAndCloneMap;
         queue<Node*> bfsQ;

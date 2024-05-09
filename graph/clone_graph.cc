@@ -26,21 +26,75 @@ public:
 
 class Solution {
 public:
-    /**
-     * 1: There might be cycles in the graph.
-     *   1.1: How to avoid cycles in BFS run?
-     *   1.2: How to avoid cycles in DFS run?
-     */
     Node* cloneGraph(Node* node) {
-        if(!node){
+        if(node == nullptr){
             return nullptr;
         }
+        //return copyValuesAndBuildGraph(node);
+        return bfsWithoutCopyingVals(node);
+    }
+
+    
+private:
+    Node* bfsWithoutCopyingVals(Node* pStartNode){
+        unordered_map<Node*, Node*> originAndCloneMap;
+        queue<Node*> bfsQ;
+        bfsQ.push(pStartNode);
+        while(!bfsQ.empty()){
+            Node* pNode = bfsQ.front();
+            bfsQ.pop();
+            
+            Node* pClone = getOrAllocateClone(originAndCloneMap, pNode);
+            vector<Node*> newlyReachedNodes = 
+                addNeighborsToClone(originAndCloneMap, pNode, pClone);
+            
+            for(Node* newNode: newlyReachedNodes){
+                bfsQ.push(newNode);
+            }
+        }
+        return originAndCloneMap[pStartNode];
+    }
+
+    Node* getOrAllocateClone(unordered_map<Node*, Node*>& originAndCloneMap, Node* pNode){
+        Node* pClone = nullptr;
+        if(originAndCloneMap.find(pNode) == originAndCloneMap.end()){
+            pClone = new Node(pNode->val);
+            originAndCloneMap[pNode] = pClone;
+        }else{
+            pClone = originAndCloneMap[pNode];
+        }
+        return pClone;
+    }
+    
+
+    vector<Node*> addNeighborsToClone(unordered_map<Node*, Node*>& originAndCloneMap,
+                             Node* pNode,
+                             Node* pClone){
+        vector<Node*> newlyReachedNodes;
+        vector<Node*> neighbors(pNode->neighbors.size(), nullptr);
+        for(int idx = 0; idx < neighbors.size(); idx++){
+            if(originAndCloneMap.find(pNode->neighbors[idx]) == 
+                originAndCloneMap.end()){
+                Node* pCloneNeighbor = new Node(pNode->neighbors[idx]->val);
+                neighbors[idx] = pCloneNeighbor;
+                originAndCloneMap[pNode->neighbors[idx]]= pCloneNeighbor;
+                newlyReachedNodes.push_back(pNode->neighbors[idx]);
+            }else{
+                ///Already added the neighbor to the map.
+                neighbors[idx]= originAndCloneMap[pNode->neighbors[idx]];
+            }
+        }
+        pClone->neighbors = neighbors;
+        return newlyReachedNodes;
+    }
+    
+    Node* copyValuesAndBuildGraph(Node* pNode){
         unordered_map<int, vector<int>>graph;
-        buildGraph(node, graph);
+        buildGraph(pNode, graph);
         Node* pCloneStart = buildClone(graph);
         return pCloneStart;
     }
-private:
+    
     Node* buildClone(unordered_map<int, vector<int>>& graph){
         vector<Node*> nodes(graph.size(), nullptr);
         for(int idx = 0; idx < graph.size(); idx++){

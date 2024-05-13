@@ -30,6 +30,10 @@ public:
         ///reverse iterators
         printInt(vec1.rbegin()[0]);///gets last element.
         printInt(vec1.rbegin()[1]);///gets one before last element.
+        for(vector<int>::reverse_iterator rItr = vec2.rbegin();
+            rItr != vec2.rend(); rItr++){
+            cout << *rItr << "\n";
+        }
     }  
 
 private:

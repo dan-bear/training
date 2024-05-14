@@ -9,6 +9,24 @@ void printInt(int val){
 
 class VectorExample{
 public:
+    template<typename printableT>
+    static void printVec(const vector<printableT>& vec){
+        for(const T& elem : vec){
+            cout << elem << " ";
+        }
+        cout << "\n";
+    }
+
+    void swapExample(){
+        vector<int> vec1 = {3, 1, 4};
+        vector<int> vec2 = {2, 1};
+        printVec<int>(vec1);
+        printVec<int>(vec2);
+        vec1.swap(vec2);
+        printVec<int>(vec1);
+        printVec<int>(vec2);
+    }
+
     void example(){
         ///Allocate a vector explicitly.
         vector<int> vec1 = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};

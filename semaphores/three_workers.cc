@@ -22,35 +22,35 @@
 class ThreeWorkers{
 private:
     ///Given:
-    Semaphore m_agentsSem{1};
-    Semaphore m_woodSem{0};
-    Semaphore m_stoneSem{0};
-    Semaphore m_steelSem{0};
+    static Semaphore s_gentsSem{1};
+    static Semaphore s_woodSem{0};
+    static Semaphore s_stoneSem{0};
+    static Semaphore s_steelSem{0};
 public:    
     ///A single thread runs the no-wood agent.
     static void sNoWoodAgent(){
         while(true){
-            m_agentsSem.wait();
-            m_stoneSem.signal();
-            m_steelSem.signal();
+            s_agentsSem.wait();
+            s_stoneSem.signal();
+            s_steelSem.signal();
         }
     }
 
     ///A single thread runs the no-stone agent.
     static void sNoStoneAgent(){   
         while(true){
-            m_agentsSem.wait();
-            m_woodSem.signal();
-            m_steelSem.signal();
+            s_agentsSem.wait();
+            s_woodSem.signal();
+            s_steelSem.signal();
         }
     }
 
     ///A single thread runs the no-steel agent.
     static void sNoSteelAgent(){
         while(true){
-            m_agentsSem.wait();
-            m_stoneSem.signal();
-            m_woodSem.signal();
+            s_agentsSem.wait();
+            s_stoneSem.signal();
+            s_woodSem.signal();
         }
     }
 
@@ -61,7 +61,7 @@ public:
             ///Do something to get both the stoneSem and woodSem.
             ///(write your code here)
             sWork();
-            m_agnetsSem.signal(); //Ask for more resources.
+            s_agnetsSem.signal(); //Ask for more resources.
         }
     }
 
@@ -70,7 +70,7 @@ public:
             ///Do something to get both the stoneSem and steelSem.
             ///(write your code here).
             sWork();
-            m_agnetsSem.signal(); //Ask for more resources.
+            s_agnetsSem.signal(); //Ask for more resources.
         }
     }
 
@@ -79,7 +79,7 @@ public:
             ///Do something to get both the woodSem and steelSem.
             ///(write your code here)
             sWork();
-            m_agnetsSem.signal(); //Ask for more resources.
+            s_agnetsSem.signal(); //Ask for more resources.
         }
     }
 
@@ -117,6 +117,63 @@ public:
     ///r3.wait()   r3.wait()   r3.wait()   r0.wait()   r1.wait()   r2.wait()
     ///r2.wait()   r2.wait()   r0.wait()   r1.wait()   r2.wait()   r3.wait()
     ///r1.wait()   r0.wait()   r1.wait()   r2.wait()   r3.wait()   r4.wait()
+
+
+
+    ///Another solutuion uses intermidiate threads, called pushers.
+private:
+    static Semaphore s_countMut{1};
+    static Semaphore s_stoneWorkerSem{0};
+    static Semaphore s_woodWorkerSem{0};
+    static Semaphore s_steelWorkerSem{0};
+
+public:
+    static void sWoodPusher(){
+        while(true){
+            s_woodSem.wait();
+            s_countMut.wait();
+            if(s_steelCount == 1){
+                ///cool, let the stoneWorker work.
+                s_steelCount = 0;
+                s_stoneWorkerSem.signal();
+            }else if(s_stoneCount == 1){
+                ///nice, let the steelWorker work.
+                s_stoneCount = 0;
+                s_steelWorkerSem.signal();
+            }else{
+                ///dang! no body can use the wood now.
+                s_woodCount = 1;
+            }
+            s_countMut.signal();
+            ///Note: don't signale the agents (woodSem),
+            ///      that's deligatedto the workers!.
+        }
+    }
+
+    ///Note the sStonePusher and sSteelPusher are symmetric, so 
+    ///their code is not re-written here.
+
+    static void sStonePusher(){/* .. */}
+
+    static void sSteelPusher(){/* .. */}
+
+    ///Now for the workers.
+    static void sWoodWorker2(){
+        while(true){
+            ///Wait to be pushed by the pushers!
+            s_woodWorkerSem.wait();
+            sWork();
+            ///Tell the agnets to work!
+            s_agentSem.signal();
+        }
+    }
+
+    ///The only different line between the workers is the
+    ///semaphore they are waiting on.
+    static void sSteelWorker2(){/*... s_steelWorkerSem.wait(); ...*/}
+
+    static void sStoneWorker2(){/*... s_stoneWorkerSem.wait(); ...*/}
+
 private:
 };
 

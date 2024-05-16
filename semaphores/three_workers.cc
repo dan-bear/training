@@ -82,7 +82,7 @@ public:
         }
     }
 
-    ///First solution - determine the semaphores-acquiring order such
+    ///First solution - determine the semaphores-acquirment order such
     ///that it eliminates dead-locks.
     ///WoodWorker             StoneWorker             SteelWorker
     ///steelSem.wait();       steelSem.wait();        woodSem.wait();
@@ -107,9 +107,9 @@ public:
     ///       It contradicts that fact that the WoodWorker cannot
     ///       hold the stoneSem since it does not hold the 
     ///       steelSem.
-
-    ///How to generalize is to more than 3 resources? Let's have a look
-    ///On 6 resources, the pattern can be generalized to any n.
+    ///
+    ///How to generalize it to more than 3 resources? Let's have a look
+    ///on 6 resources, the pattern can be generalized to any n.
     ///r0Worker    r1Worker    r2Worker    r3Worker    r4Worker    r5Worker
     ///r5.wait()   r5.wait()   r5.wait()   r5.wait()   r5.wait()   r0.wait()
     ///r4.wait()   r4.wait()   r4.wait()   r4.wait()   r0.wait()   r1.wait()
@@ -121,12 +121,19 @@ public:
 
     ///Another solutuion uses intermidiate threads, called pushers.
 private:
+    ///Additional semaphores.
     static Semaphore s_countMut{1};
     static Semaphore s_stoneWorkerSem{0};
     static Semaphore s_woodWorkerSem{0};
     static Semaphore s_steelWorkerSem{0};
+    ///Counters
+    static int s_woodCount{0};
+    static int s_stoneCount{0};
+    static int s_steelCount{0};
 
 public:
+    ///Each pushed is ran by a thread. There are three pushers,
+    ///corresponding to each resource.
     static void sWoodPusher(){
         while(true){
             s_woodSem.wait();

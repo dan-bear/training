@@ -137,6 +137,7 @@ public:
     static void sWoodPusher(){
         while(true){
             s_woodSem.wait();
+            ///Oh yeah, the agent gave me some wood.
             s_countMut.wait();
             if(s_steelCount == 1){
                 ///cool, let the stoneWorker work.

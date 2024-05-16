@@ -3,20 +3,19 @@
  * noWoodAgent provides stone and steel.
  * noStoneAgent provides steel and wood.
  * noSteelAgent provides stone and wood.
- * Each agent is a thread running in infinite loop
+ * Each agent is a thread running in an infinite loop
  * (see the functions below). 
  * - The agents sync over a single semaphore, once the
  *   semaphore is taken two resources are allocated and 
  *   the workers can use them.
- * - A worker need to get 2 resources to do its work.
- *   while the third resource is in abundance.
+ * - A worker needs to get 2 resources to do its work and
+ *   the third resource is in abundance.
  *   - For example, the WoodWorker has wood and needs to
- *     get stone and steel from the agent.
- * - Once a worker complete its work it signals the agents' 
- *   semaphore and gets back waiting
- *   for more resources.
+ *     get stone and steel from the agents.
+ * - Once a worker completes its work it signals the agents' 
+ *   semaphore and gets back waiting for additional resources.
  * The problem is to complete the workers code such that
- * the work progresses and no dead-lock occurs.
+ * the workers progress and no dead-lock occurs.
  * (see code below for more details).
  */
 class ThreeWorkers{

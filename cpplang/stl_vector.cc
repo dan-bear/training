@@ -17,6 +17,13 @@ public:
         cout << "\n";
     }
 
+    
+    void sIterateFromNthElemExample(const vector<int>& vec, int elemNum){
+        for(auto itr = next(vec.begin(), elemNum); itr != vec.end(); itr++){
+            cout << *itr << " ";
+        }
+    }
+
     void swapExample(){
         vector<int> vec1 = {3, 1, 4};
         vector<int> vec2 = {2, 1};

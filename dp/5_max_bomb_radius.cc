@@ -1,4 +1,3 @@
-
 /**
  * https://leetcode.com/discuss/interview-question/5304104/Google-or-Interview-Question
  * 

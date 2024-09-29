@@ -47,7 +47,7 @@ private:
                 // 4.. or 9.. case - for example XC or XL ,we added 10 in the
                 // previous iteration but should have added 40 or 90, so to 
                 // fix it one needs to add 30 or 80, i.e. 50 - 2*10 or 100 * 2*10
-                intFormat += (romanToIntVal.at(c) - 2*prevVal);
+                intFormat += (romanToIntVal.at(c) - 2 * prevVal);
             }else{
                 intFormat += romanToIntVal.at(c);
             }

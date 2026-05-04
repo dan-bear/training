@@ -26,6 +26,10 @@
 
 ## Snapshot Techniques
 
+### LBA Chains ###
+
+
+
 ## Thin and Thick Clones
 
 ## Multi Tenancy

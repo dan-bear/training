@@ -84,6 +84,13 @@
 ## Consistency Models (algo, pros and cons)
 - **MVCC Concept**
 - **Read After Write**
+  1. If Write succeeds, any follower reader would see the written data.
+  2. Consequences:
+    - 2 concurrent writes will be serialized on arrival order, not on issue order
+    - No native (without additional locking) atomic writes to multiple locations, as every write is applied once done.
+    - No native atomic "rename" (metadata modification) as renaming means copy + Delete.
+  4. Implementation Methods
+  5. Products:
 - **Eventual Consistency**
 - **Optimistic Locking**
 - **2-Phase-Locking**

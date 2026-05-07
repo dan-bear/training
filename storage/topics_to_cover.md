@@ -3,6 +3,12 @@
 ## DaSE architecture VS shared-nothing architecture
 
 ## Erasure Coding
+
+### Concept
+- Promise - **Data** is split into k **data-shards**: D[0], ... , D[K-1] and m **parity-shards** calculated from the data-shards P[0],...,P[m-1], any subset of k shards from the unioned set of the data-shards and the parity-shards can be used to reconstruct the **Data**.
+- Storage Overhead - given EC(k,m) the storage overhead is 1 + (m/k), a common scheme is EC(10,4) with overhead of 1.4. Better then replication that multiplies the storage overhead by replication-factor (3x replication => 3x storage overhead).
+- Compute Overhead - any modification of the Data demands modification of the parity-shards that potentially reside in different failure-domains. Replication does not demand parity calculation.
+- Width - the greater the ratio between the number of data-shard (k, also called EC width) and the number of parity-shards (m) the better the storage ratio, EC(100,4) overhead is 1.04 while EC(16,4) overead is 1.25. However, the reconstruction demands at least k shards, so reconstruction cost increases (compute and network) with k (width). Note that the probability for errors during reconstruction increases with the reconstruction time, so wide EC leads to more complex system.
 - **local EC**
 - **distributed EC**
 
@@ -76,8 +82,14 @@
 
 ### LBA Chains ###
 
+## Indexes
+- elastic index, how to extend and shrink a distributed index.
 
 ## Thin and Thick Clones
+
+## Rebalance Algorithms
+- shared-nothing architectures
+- disaggregate and share anything architectures
 
 ## Multi Tenancy
 

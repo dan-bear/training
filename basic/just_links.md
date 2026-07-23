@@ -5,3 +5,7 @@
 3: https://leetcode.com/problems/balanced-binary-tree/ #binary trees
 
 4: https://leetcode.com/problems/minimum-depth-of-binary-tree/ #binary trees #recusion #BFS
+
+5: https://leetcode.com/problems/path-sum/ #binary trees #recursion #dfs
+
+6:

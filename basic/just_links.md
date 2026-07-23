@@ -1,3 +1,9 @@
+Better:
+
+1: https://leetcode.com/problems/single-number/ #operations #xor
+
+-----
+Regular:
 1: https://leetcode.com/problems/remove-duplicates-from-sorted-list/ #linked list
 
 2: https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/ #binary trees
@@ -8,4 +14,6 @@
 
 5: https://leetcode.com/problems/path-sum/ #binary trees #recursion #dfs
 
-6:
+
+-----
+mmmmm

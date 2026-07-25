@@ -1,3 +1,10 @@
+On going:
+
+1: https://leetcode.com/problems/excel-sheet-column-title/
+
+2: https://leetcode.com/problems/lru-cache/description/
+
+-----
 Better:
 
 1: https://leetcode.com/problems/single-number/ #operations #xor

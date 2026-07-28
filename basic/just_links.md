@@ -1,8 +1,6 @@
 On going:
 
-1: https://leetcode.com/problems/excel-sheet-column-title/
-
-2: https://leetcode.com/problems/lru-cache/description/
+1: https://leetcode.com/problems/lru-cache/description/
 
 -----
 Better:
@@ -10,6 +8,8 @@ Better:
 1: https://leetcode.com/problems/single-number/ #operations #xor
 
 2: https://leetcode.com/problems/intersection-of-two-linked-lists/ #linked list
+
+3: https://leetcode.com/problems/excel-sheet-column-title/ #math
 
 -----
 Regular:

@@ -11,6 +11,8 @@ Better:
 
 3: https://leetcode.com/problems/excel-sheet-column-title/ #math
 
+4: https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix #riddle #matrix #pattern-iterations
+
 -----
 Regular:
 

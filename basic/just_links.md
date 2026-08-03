@@ -26,6 +26,8 @@ Regular:
 
 5: https://leetcode.com/problems/path-sum/ #binary trees #recursion #dfs
 
+6: https://leetcode.com/problems/excel-sheet-column-number/ #math
+
 
 -----
 mmmmm

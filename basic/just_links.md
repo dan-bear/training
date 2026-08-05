@@ -2,6 +2,8 @@ On going:
 
 1: https://leetcode.com/problems/lru-cache/description/
 
+2: https://leetcode.com/problems/reverse-bits/
+
 -----
 Better:
 

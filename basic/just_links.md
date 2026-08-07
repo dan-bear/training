@@ -4,6 +4,8 @@ On going:
 
 1: https://leetcode.com/problems/lru-cache/description/
 
+2: https://leetcode.com/problems/swap-nodes-in-pairs/
+
 -----
 
 Categories: #xor #bits #linked_list #math #matrix #pattern_iteration #binary_trees #recursion #bfs #dfs

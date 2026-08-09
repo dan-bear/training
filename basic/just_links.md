@@ -6,7 +6,7 @@ On going:
 
 -----
 
-Categories: #xor #bits #linked_list #math #matrix #pattern_iteration #binary_trees #recursion #bfs #dfs
+Categories: #xor #bits #linked_list #math #matrix #pattern_iteration #binary_trees #recursion #bfs #dfs #log
 
 -----
 Better:
@@ -37,6 +37,9 @@ Regular:
 6: https://leetcode.com/problems/excel-sheet-column-number/ #math
 
 7: https://leetcode.com/problems/reverse-bits/ #bits
+
+8: https://leetcode.com/problems/divide-two-integers/ #math #bits #log
+
 
 
 -----

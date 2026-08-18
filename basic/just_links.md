@@ -6,7 +6,7 @@ On going:
 
 -----
 
-Categories: #xor #bits #linked_list #math #matrix #pattern_iteration #binary_trees #recursion #bfs #dfs #log
+Categories: #xor #bits #linked_list #math #matrix #pattern_iteration #binary_trees #recursion #bfs #dfs #log #lists #smart-iteration
 
 -----
 Better:
@@ -20,6 +20,10 @@ Better:
 4: https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix #riddle #matrix #pattern_iterations
 
 5: https://leetcode.com/problems/swap-nodes-in-pairs/ #linked_list
+
+5: https://leetcode.com/problems/next-permutation/ #lists #smart-iteration
+
+7: 
 
 -----
 Regular:

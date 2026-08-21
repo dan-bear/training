@@ -12,6 +12,8 @@
 
 
 **Claims / Principles / Thoughts**
+1. discriminative-models: CNN -> LeNet5 -> AlexNext -> Pixel-Level-Generative-Models (GAN/VAE) -> Diffusion Models (DDPM, DDEM) -> Vision-Language-Action (VLA)
+2. joint-embedding-modfles: Siamese-Networks -> Contrastive-Methods (MoCo, SimCLR) -> BYOL (bootstrap your own Latent) -> Barlow-Twins -> VicReg ->JEPA
 
 
 **Sources**
